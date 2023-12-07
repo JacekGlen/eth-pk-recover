@@ -1,5 +1,4 @@
-Introduction
-============
+## Introduction
 
 Account abstraction involves modifying the Ethereum account model to allow for more flexibility and modularity. This includes the introduction of new types of accounts and potentially a refined gas model. The idea is to enable new use cases and improve the overall efficiency of the Ethereum network.
 
@@ -13,6 +12,5 @@ Enhanced Privacy and Security: Implementing features within the account abstract
 
 Flexible Smart Contract Execution: Allowing for more flexible and modular execution of smart contracts. This could involve changes to the way contracts are executed or instantiated on the Ethereum network.
 
-Role of Private Keys
-====================
+## Role of Private Keys
 
