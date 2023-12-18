@@ -11,11 +11,11 @@ A lot of effort has been put into securing private keys. The introduction of har
 
 This repository offers a solution to this problem. Users can store their private keys in the most secure, least accessible way. Then they can enable private key recovery and use it to recover the private key when they need it. The unique multi-factor recovery mechanism ensures that the private key is not exposed to any single point of failure.
 
-Firstly, users create private key recovery. For this, the private key is encoded and recovery data is generated. The recovery data is then split into multiple shares, known as User Secrets. The User Secrets are stored in multiple locations. Each location is secured with a different security mechanism. This makes it harder for an attacker to steal the private key since they would have to compromise multiple locations in order to recover it. Our [research/workflow.md](research/workflow.md) document describes the workflow in more detail. It also explains the rationale behind the design decisions.
+Firstly, users create private key recovery. For this, the private key is encoded and recovery data is generated. The recovery data is then split into multiple shares, known as User Secrets. Then, the User Secrets are stored in multiple locations. Each location is secured with a different security mechanism. This makes it harder for an attacker to steal the private key since they would have to compromise multiple locations in order to recover it. Our [research/workflow.md](research/workflow.md) document describes the workflow in more detail. It also explains the rationale behind the design decisions.
 
 When the user needs to recover the private key, they need to access all required User Secrets. Once available, the User Secrets are combined to recreate the recovery data. The recovery data is then used to recover the private key. A single User Secret is not enough to recover the private key.
 
-For additional protection from losing access to private keys, this approach also supports [m-of-n](research/m-of-n.md) recovery. This means that the private key can be recovered if at least m out of n user secrets are available. For example, the private key can be recovered if 2 out of 3 user secrets are available.
+For additional protection from losing access to private keys, this approach also supports [m-out-of-n](research/m-out-of-n.md) recovery. This means that the private key can be recovered if at least m out of n user secrets are available. For example, the private key can be recovered if 2 out of 3 user secrets are available.
 
 Please see [research/algorithm.md](research/algorithm.md) for more details on the algorithm.
 
@@ -47,5 +47,3 @@ The following implementations are currently available:
 - On the other hand, the fact that an adversary knows some but an insufficient number of user secrets does not weaken a private key. Keyword: security.
 - This can be applied to both newly created and existing private keys.
 - Three steps: generate user secrets, distribute user secrets, and optionally recover a private key.
-
-
