@@ -28,17 +28,17 @@ Note that 32 bytes segments do not weaken a private key. It means that, if an ad
 An example, 3 out of 5. `X` means that a segment is included. Note that there are ${5\choose 5-(3-1)}=10$ segments.
 
 | input data | data set 0 | data set 1 | data set 2 | data set 3 | data set 4 |
-|---|---|---|---|---|---|
-| X | X | X | X |   |   |
-| X | X | X |   | X |   |
-| X | X | X |   |   | X |
-| X | X |   | X | X |   |
-| X | X |   | X |   | X |
-| X | X |   |   | X | X |
-| X |   | X | X | X |   |
-| X |   | X | X |   | X |
-| X |   | X |   | X | X |
-| X |   |   | X | X | X |
+|---|:---:|:---:|:---:|:---:|:---:|
+| Segment 0 | X | X | X |   |   |
+| Segment 1 | X | X |   | X |   |
+| Segment 2 | X | X |   |   | X |
+| Segment 3 | X |   | X | X |   |
+| Segment 4 | X |   | X |   | X |
+| Segment 5 | X |   |   | X | X |
+| Segment 6 |   | X | X | X |   |
+| Segment 7 |   | X | X |   | X |
+| Segment 8 |   | X |   | X | X |
+| Segment 9 |   |   | X | X | X |
 
 
 
