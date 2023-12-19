@@ -22,7 +22,7 @@ There exists `n-(m-1)` blocks that you do not know.
 There exists a chunk that is included only in these `n-(m-1)` blocks.
 Thus there exists a chunk you do not know and input data cannot be recovered.
 
-Note that 32 bytes chunks do not weaken a private key. It means that, if an adversary knows `n-1` chunks, the private key is still secure.
+Note that 32 bytes chunks do not weaken a private key. It means that, if an adversary knows all but one chunk, the private key is still secure.
 
 An example, 3 out of 5. `X` means that a chunk is included. Note that there are ${5\choose 5-(3-1)}=10$ chunks.
 
