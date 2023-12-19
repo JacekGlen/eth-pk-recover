@@ -1,44 +1,43 @@
-Let say we have input data. And we need to create `n` data sets that:
-- having any `m` of data sets, input data can be recovered,
-- having less than `m` of data sets, input data cannot be recovered.
+Let say we have input data. And we need to create `n` data blocks that:
+- having any `m` of blocks, input data can be recovered,
+- having less than `m` of blocks, input data cannot be recovered.
 
-Resulting data sets are understood as user secrets and input data is used to compute a private key:
-```script
-pk = keccak256(input_data)
-```
+Resulting data blocks are understood as user secrets and input data is intended for a private key recovery.
 
 # Algorithm 1.
 
 This is simpler one but provides larger user secrets in terms of bytes length.
 
-1. Divide input data into ${n\choose n-(m-1)}$ equal segments.
-2. Assing each segment into a different `n-(m-1)`-element subset of data sets. There is ${n\choose n-(m-1)}$ such subsets. This assignment is a bijection.
-3. A segment is included in its assigned data sets, and not included in others.
+1. Divide input data into ${n\choose n-(m-1)}$ data chunks of equal length.
+2. Include every chunk in exactly `n-(m-1)` blocks, the way that any two different chunks are not included in the same `n-(m-1)` blocks.
 
-Proof of correctness. Assume you know at least `m` data sets and a given segment. 
-The segment is included in `n-(m-1)` data sets. It holds `m+n-(m-1)>n`.
-Thus the segment is included in at least one data set you know and all input data can be recovered.
-Assume you know less than `m` data sets. 
-There exists `n-(m-1)`-element subset of data sets that you do not know. 
-You do not know a segment assigned to this subset.
-Thus there exists a segment you do not know and input data cannot be recovered.
+Proof of correctness. 
+There are ${n\choose n-(m-1)}$ chunks and ${n\choose n-(m-1)}$ different sets of `n-(m-1)` blocks.
+Thus the algorithm is doable.
+Assume you know at least `m` blocks and consider a given chunk. 
+The chunk is included in `n-(m-1)` blocks. It holds `m+n-(m-1)>n`.
+Thus the chunk is included in at least one block you know and in consequence all input data can be recovered.
+Assume you know less than `m` blocks. 
+There exists `n-(m-1)` blocks that you do not know. 
+There exists a chunk that is included only in these `n-(m-1)` blocks.
+Thus there exists a chunk you do not know and input data cannot be recovered.
 
-Note that 32 bytes segments do not weaken a private key. It means that, if an adversary knows `n-1` segments, the private key is still secure.
+Note that 32 bytes chunks do not weaken a private key. It means that, if an adversary knows `n-1` chunks, the private key is still secure.
 
-An example, 3 out of 5. `X` means that a segment is included. Note that there are ${5\choose 5-(3-1)}=10$ segments.
+An example, 3 out of 5. `X` means that a chunk is included. Note that there are ${5\choose 5-(3-1)}=10$ chunks.
 
-| input data | data set 0 | data set 1 | data set 2 | data set 3 | data set 4 |
+| input data | block 0 | block 1 | block 2 | block 3 | block 4 |
 |---|:---:|:---:|:---:|:---:|:---:|
-| Segment 0 | X | X | X |   |   |
-| Segment 1 | X | X |   | X |   |
-| Segment 2 | X | X |   |   | X |
-| Segment 3 | X |   | X | X |   |
-| Segment 4 | X |   | X |   | X |
-| Segment 5 | X |   |   | X | X |
-| Segment 6 |   | X | X | X |   |
-| Segment 7 |   | X | X |   | X |
-| Segment 8 |   | X |   | X | X |
-| Segment 9 |   |   | X | X | X |
+| chunk 0 | X | X | X |   |   |
+| chunk 1 | X | X |   | X |   |
+| chunk 2 | X | X |   |   | X |
+| chunk 3 | X |   | X | X |   |
+| chunk 4 | X |   | X |   | X |
+| chunk 5 | X |   |   | X | X |
+| chunk 6 |   | X | X | X |   |
+| chunk 7 |   | X | X |   | X |
+| chunk 8 |   | X |   | X | X |
+| chunk 9 |   |   | X | X | X |
 
 
 
