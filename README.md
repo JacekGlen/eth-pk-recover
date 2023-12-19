@@ -1,38 +1,38 @@
+ 
 # eth-pk-recover
-Ethereum network private key recovery: methodology and implementations
+Distributed, multi-factor private key recovery for Ethereum ecosystem: methodology and implementations
 
 ## Motivation
 
-The private key gives unlimited access to the Ethereum account. It is vital to keep them secure and protect them from either being lost or stolen. But these two requirements are often in conflict with each other. This creates a dilemma for users: the more secure the private key is, the less accessible it is and the higher the chance of losing the access. On the other hand, increasing accessibility leads to decreased security. This is a tradeoff that users have to make when deciding how to store their private keys.
+The private keys give unlimited access to the Ethereum accounts. It is vital to keep them secure and protect them from either being lost or stolen. But these two requirements are often in conflict with each other. This creates a dilemma for users: the more secure the private key is, the less accessible it is and the higher the chance of losing access. On the other hand, increasing accessibility leads to decreased security. This is a tradeoff that users have to make when deciding how to store their private keys.
 
-A lot of effort has been put into securing private keys. The introduction of hardware wallets has made it easier to store them securely. However, there are still many cases where private keys cannot be stored in hardware wallets. Account abstraction ([ERC-4337](https://eips.ethereum.org/EIPS/eip-4337)) can help to alleviate some of these issues. However, it has not been widely adopted yet. Even then, account abstraction does not work in every scenario.
+A lot of effort has been put into securing private keys. The introduction of hardware wallets has made it easier to store them securely. However, there are still many cases where private keys cannot be stored in hardware wallets. Account abstraction ([ERC-4337](https://eips.ethereum.org/EIPS/eip-4337)) can help to alleviate some of these issues. However, it has not been widely adopted yet. Even then, account abstraction only works in some scenarios.
 
 ## Methodology
 
-This repository offers a solution to this problem. Users can store their private keys in the most secure, least accessible way. Then they can enable private key recovery and use it to recover the private key when they need it. The unique multi-factor recovery mechanism ensures that the private key is not exposed to any single point of failure.
+This repository offers a solution to this problem. Users can store their private keys in the most secure, least accessible way. Then they can enable private key recovery and use it to reclaim the private key when they need it. The multi-factor recovery mechanism ensures that the private key is not exposed to any single point of failure.
 
-Firstly, users create private key recovery. For this, the private key is encoded and recovery data is generated. The recovery data is then split into multiple shares, known as User Secrets. Then, the User Secrets are stored in multiple locations. Each location is secured with a different security mechanism. This makes it harder for an attacker to steal the private key since they would have to compromise multiple locations in order to recover it. Our [research/workflow.md](research/workflow.md) document describes the workflow in more detail. It also explains the rationale behind the design decisions.
+The creation of the private key recovery is a two-step process.
 
-When the user needs to recover the private key, they need to access all required User Secrets. Once available, the User Secrets are combined to recreate the recovery data. The recovery data is then used to recover the private key. A single User Secret is not enough to recover the private key.
+Firstly, the system creates recovery data for the private key. This could be either a new system-generated or an existing user-provided key. The recovery data is then split into multiple shares, known as User Secrets. A single User Secret is not enough to recover the private key. It does not even reduce the effort required to brute-force the private key. The recovery is only possible when all required User Secrets are available and recovery data is reconstructed. See [algorithm](research/algorithm.md) page for more details on cryptography and algorithms used in this step.
 
-For additional protection from losing access to private keys, this approach also supports [m-out-of-n](research/m-out-of-n.md) recovery. This means that the private key can be recovered if at least m out of n user secrets are available. For example, the private key can be recovered if 2 out of 3 user secrets are available.
+Secondly, the User Secrets are distributed to multiple locations. This step allows full flexibility, it is up to the users to decide which locations work best for them. Each location applies its own security mechanisms. This makes it harder for an attacker to steal the private key since they would have to compromise multiple locations in order to recover it. Our [workflow](research/workflow.md) document describes the workflow in more detail. It also explains the rationale behind the design decisions.
 
-Please see [research/algorithm.md](research/algorithm.md) for more details on the algorithm.
+To recover the private key, the users must access all required secure locations to retrieve User Secrets. Once available, the User Secrets are used to reconstruct the recovery data. The recovery data is then used to recover the private key. For additional protection from losing access to private keys, this approach also supports [m-out-of-n](research/m-out-of-n.md) recovery. This means that the private key can be recovered if at least m out of n User Secrets are available. For example, the private key can be recovered if 2 out of 3 user secrets are available.
 
-## User secrets
+## User Secret Locations
 
-User secrets are key to recovering the private key. They are stored in multiple locations. Each location is secured with a different security mechanism. This makes it harder for an attacker to steal the private key since they would have to compromise multiple locations in order to recover it.
+User Secrets are key to recovering the private key. They are stored in multiple locations. Each location is secured with a different security mechanism. This makes it harder for an attacker to steal the private key since they would have to compromise multiple locations in order to recover it.
 
-Currently, the following user secrets are supported, but more can be added in the future:
-- Self-Custody: User secret is saved in a file. It is the user's responsibility to keep the file secure.
-- Password Manager: User secret is saved in a password manager. See [research/password-manager.md](research/password-manager.md).
-- On-chain: User secret is saved on the Ethereum chain and protected by another ETH account. See [research/on-chain.md](research/on-chain.md).
-- Key Valut: User secret is saved in a key vault. See [research/key-vault.md](research/key-vault.md).
-- OAuth2: User secret is saved in an OAuth2 provider. See [research/oauth2.md](research/oauth2.md).
-- Social: User secret is saved in a social network. See [research/social.md](research/social.md).
-- SGX: User secret is saved in an Intel SGX enclave. See [research/sgx-timelock.md](research/sgx-timelock.md).
-- Centralized Provider: User secret is saved in a centralized provider. See [research/centralized-provider.md](research/centralized-provider.md).
-
+Currently, the following locations for User Secrets are supported, but more can be added in the future:
+- Self-Custody: User Secret is saved in a file. This is the most naive approach, but it is also the most flexible one. It is up to the user to decide how to secure the file. For example, it can be encrypted with a password or stored on a USB drive.
+- [Social](research/social.md): This utilises the power of social media and social networks. User Secrets are entrusted to friends and family. The retrieval process is verified through channels provided by social networks.
+- [On-chain](research/on-chain.md): Storing User Secrets on the chain is in the spirit of the distributed and trustless nature of Ethereum. The user secret is protected by another ETH account.
+- [Password Managers](research/password-manager.md): These services are popular and widely used. If a user already uses a password manager that they can trust, they can store their User Secrets there as well.
+- [Key Valuts](research/key-vault.md): User secret is saved in a key vault.
+- [OAuth2](research/oauth2.md): User secret is saved in an OAuth2 provider.
+- [SGX](research/sgx-timelock.md): User secret is saved in an Intel SGX enclave.
+- [Eth-pk-recovery Providers](research/centralized-provider.md): These services are hosted by third parties. They implement the methodology described in this repository. They provide a user interface to help navigate through the recovery process, but they can also be used as a convenient way to store User Secrets. However, they are centralized and trustful.
 
 ## Implementations
 
