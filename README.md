@@ -1,6 +1,6 @@
  
-# eth-pk-recover
-Distributed, multi-factor private key recovery for Ethereum ecosystem: methodology and implementations
+# Starfish Protocol
+Distributed, multi-factor private key backup for the Ethereum ecosystem
 
 ## Motivation
 
@@ -10,15 +10,15 @@ A lot of effort has been put into securing private keys. The introduction of har
 
 ## Methodology
 
-This repository offers a solution to this problem. Users can store their private keys in the most secure, least accessible way. Then they can enable private key recovery and use it to reclaim the private key when they need it. The multi-factor recovery mechanism ensures that the private key is not exposed to any single point of failure.
+The Starfish Protocol offers a solution to this problem. Users can store their private keys in a more secure, less accessible way. Then they can create a secure backup and use it to recover private keys when they need it. The distributed and multi-factor recovery mechanism ensures that the private key is not exposed to any single point of failure.
 
-The creation of the private key recovery is a two-step process.
+The creation of the private key backup is a two-step process.
 
-Firstly, the system creates recovery data for the private key. This could be either a new system-generated or an existing user-provided key. The recovery data is then split into multiple shares, known as User Secrets. A single User Secret is not enough to recover the private key. It does not even reduce the effort required to brute-force the private key. The recovery is only possible when all required User Secrets are available and recovery data is reconstructed. See [algorithm](research/algorithm.md) page for more details on cryptography and algorithms used in this step.
+Firstly, the system creates recovery data for the private key. This could be either a new, system-generated key or an existing, user-provided key. The recovery data is then split into multiple shares, known as User Secrets. A single User Secret is not enough to recover the private key. It does not even reduce the effort required to brute-force the private key. The recovery is only possible when all required User Secrets are available and recovery data is reconstructed. See [algorithm](research/algorithm.md) page for more details on cryptography and algorithms used in this step.
 
 Secondly, the User Secrets are distributed to multiple locations. This step allows full flexibility, it is up to the users to decide which locations work best for them. Each location applies its own security mechanisms. This makes it harder for an attacker to steal the private key since they would have to compromise multiple locations in order to recover it. Our [workflow](research/workflow.md) document describes the workflow in more detail. It also explains the rationale behind the design decisions.
 
-To recover the private key, the users must access all required secure locations to retrieve User Secrets. Once available, the User Secrets are used to reconstruct the recovery data. The recovery data is then used to recover the private key. For additional protection from losing access to private keys, this approach also supports [m-out-of-n](research/m-out-of-n.md) recovery. This means that the private key can be recovered if at least m out of n User Secrets are available. For example, the private key can be recovered if 2 out of 3 user secrets are available.
+To recover the private key from the backup, the users must access all required secure locations to retrieve User Secrets. Once available, the User Secrets are used to reconstruct the recovery data. The recovery data is then used to reconstruct the private key. For additional protection from losing access to private keys, this approach also supports [m-out-of-n](research/m-out-of-n.md) recovery. This means that the private key can be recovered if at least m out of n User Secrets are available. For example, the private key can be recovered if 2 out of 3 User Secrets are available.
 
 ## User Secret Locations
 
@@ -47,3 +47,4 @@ The following implementations are currently available:
 - On the other hand, the fact that an adversary knows some but an insufficient number of user secrets does not weaken a private key. Keyword: security.
 - This can be applied to both newly created and existing private keys.
 - Three steps: generate user secrets, distribute user secrets, and optionally recover a private key.
+
