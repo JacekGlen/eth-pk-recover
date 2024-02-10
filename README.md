@@ -2,15 +2,25 @@
 # Starfish Protocol
 Distributed, multi-factor private key backup for the Ethereum ecosystem
 
+## Features
+
+- **Security**: The backup, and its parts called User Secrets, all have the same security grade as the private key itself. Access channels are of user's choice, and they are secured with the top industry standards.
+- **Multi-factor recovery**: The backup parts (User Secrests) are each secured in an individual way using different mechanisms. The private key can be recovered if at least m out of n User Secrets are available. For example, the private key can be recovered if 2 out of 3 User Secrets are available.
+- **Social recovery**: User Secrets can be entrusted to friends and family. The retrieval process is verified through channels provided by social networks, blockchain or other means.
+- **Decentralization**: Much effort is put into securing User Secrets in a decentralized way, avoiding single points of failure. While individual secrets _might_ be stored in centralized locations, the recovery process is decentralized.
+- **Expandability**: The protocol is designed to be flexible and modular. Additionally it can work with the exisitng solutions, such as web3auth, magic.link, account abstraction, etc.
+- **Future-proof**: The protocol is designed to adapt to the future changes in the Ethereum ecosystem. Its modular design allows for easy integration with new technologies and standards, e.g. new User Secret locations, quantum-resistant cryptography, etc.
+- **Wallet integration**: The protocol can be integrated into wallets for a seamless user experience. It can be used as a backup mechanism for the private keys, or for dynamic transaction signing.
+
 ## Motivation
 
 The private keys give unlimited access to the Ethereum accounts. It is vital to keep them secure and protect them from either being lost or stolen. But these two requirements are often in conflict with each other. This creates a dilemma for users: the more secure the private key is, the less accessible it is and the higher the chance of losing access. On the other hand, increasing accessibility leads to decreased security. This is a tradeoff that users have to make when deciding how to store their private keys.
 
-A lot of effort has been put into securing private keys. The introduction of hardware wallets has made it easier to store them securely. However, there are still many cases where private keys cannot be stored in hardware wallets. Account abstraction ([ERC-4337](https://eips.ethereum.org/EIPS/eip-4337)) can help to alleviate some of these issues. However, it has not been widely adopted yet. Even then, account abstraction only works in some scenarios.
+A lot of effort has been put into securing private keys. Mnemonics made it easier for the users to manage their private keys. The introduction of hardware wallets made it easier to store them securely. However, there are still many cases where private keys cannot be stored in hardware wallets. Account abstraction ([ERC-4337](https://eips.ethereum.org/EIPS/eip-4337)) can help to alleviate some of these issues. However, it has not been widely adopted yet. Even then, account abstraction only works in some scenarios.
 
 ## Methodology
 
-The Starfish Protocol offers a solution to this problem. Users can store their private keys in a more secure, less accessible way. Then they can create a secure backup and use it to recover private keys when they need it. The distributed and multi-factor recovery mechanism ensures that the private key is not exposed to any single point of failure.
+The Starfish Protocol offers a solution to this dilemma. Users can store their private keys in a more secure, less accessible way. Then they can create a secure backup and use it to recover private keys when they need it. The distributed and multi-factor recovery mechanism ensures that the private key is not exposed to any single point of failure.
 
 The creation of the private key backup is a two-step process.
 
