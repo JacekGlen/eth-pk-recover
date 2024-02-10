@@ -38,3 +38,9 @@ An example, 3 out of 5. `X` means that a chunk is included. Note that there are 
 | chunk 7 |   | X | X |   | X |
 | chunk 8 |   | X |   | X | X |
 | chunk 9 |   |   | X | X | X |
+
+# Algorith 2
+RAID 6
+
+# Algorithm 3
+Shamir's Secret Sharing
