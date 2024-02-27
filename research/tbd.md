@@ -27,3 +27,11 @@ ZK-proof is stored on-chain. The ZK-proof is verified by the smart contract. The
 ## List of User Secrets
 We can create a token that encapsulates the list of User Secrets. This might include locations and identities, e.g. 'My friend Tom on Facebook' or 'alice@example.com on Google Drive'. 
 Can it be public? What are security risks? Can it be used for invalidating User Secrets? 
+
+## Offline page
+To crate the backup or recover the private key, the user downloads a signle html page, which guides the user through the process. The page has adapters for all known User Secret storage locations. It also has cryptography functions to create the backup and recover the private key. The page does not store any data or private keys, but can reveal the private key to the user when conditions are met.
+How to make sure the page is not tampered with? How to make sure the page is not used for phishing?
+
+## Brain User Secret
+The User Secret is stored as an anwer to a security question. Security questions suck individually, but if you combine eg. 20 of them you can get quite a lot of entropy.
+Creating a User Secret from a security question is very sensitive to typos, case sensitivity, etc. How to make sure the user can recover the User Secret? How to make sure the User Secret is not easily guessable?

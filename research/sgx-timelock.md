@@ -17,3 +17,7 @@ Overall, Intel SGX provides a hardware-based solution for protecting sensitive d
 ## User Secret Management
 
 The idea is to store the user's secret in the enclave. This can be done using Sealing/Unsealing mechanism. The user's secret is encrypted using a key derived from the enclave's measurement. The sealed data can only be unsealed by the same enclave, ensuring that the secret is only accessible to the enclave that created it.
+
+
+
+https://en.wikipedia.org/wiki/Trusted_Computing
