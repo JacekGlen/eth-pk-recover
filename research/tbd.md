@@ -32,6 +32,17 @@ Can it be public? What are security risks? Can it be used for invalidating User 
 To crate the backup or recover the private key, the user downloads a signle html page, which guides the user through the process. The page has adapters for all known User Secret storage locations. It also has cryptography functions to create the backup and recover the private key. The page does not store any data or private keys, but can reveal the private key to the user when conditions are met.
 How to make sure the page is not tampered with? How to make sure the page is not used for phishing?
 
+## Browser plugin
+The browser plugin can be used to create the backup or recover the private key. The plugin has adapters for all known User Secret storage locations. It also has cryptography functions to create the backup and recover the private key. The plugin does not store any data or private keys, but can reveal the private key to the user when conditions are met.
+Also consider implementing Snap extension for MetaMask. Vendor lock-in risk?
+
 ## Brain User Secret
 The User Secret is stored as an anwer to a security question. Security questions suck individually, but if you combine eg. 20 of them you can get quite a lot of entropy.
 Creating a User Secret from a security question is very sensitive to typos, case sensitivity, etc. How to make sure the user can recover the User Secret? How to make sure the User Secret is not easily guessable?
+
+## Avoid sychronous channel
+In the situation when the recovery depends on an action from a third party, e.g. friend's approval or decryption of on-chain data, we should avoid sychronous channels.
+What are other secure channels to deliver User Secrets?
+
+## Verifiable User Secret
+Implement "A Simple Publicly Verifiable Secret Sharing Scheme and its Application to Electronic Voting" by Berry Schoenmakers into the User Secret management.
